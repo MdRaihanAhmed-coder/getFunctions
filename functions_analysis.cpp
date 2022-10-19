@@ -62,7 +62,7 @@ bool AFLCoverage::runOnModule(Module &M) {
         auto printfFunc = M.getOrInsertFunction("printf", printfType);
 
          for (auto &F : M){
-		errs()<<F.getName()<<"\n";
+		//errs()<<F.getName()<<"\n";
 		std::vector<std::string> arguments;
 		//arguments.push_back(std::string("dummy1"));
 		//arguments.push_back(std::string("dummy2"));
@@ -75,7 +75,7 @@ bool AFLCoverage::runOnModule(Module &M) {
 		rso << F.getName() << " ";
 		arguments.push_back(rso.str());
 			for(auto i = F.arg_begin();i!=F.arg_end();++i){
-				errs()<<"\narguments: "<<*i<<"\n";
+				//errs()<<"\narguments: "<<*i<<"\n";
 				//std::string s;
 				//raw_string_ostream rso(s);
 				rso << *i<<"\n";

@@ -85,65 +85,65 @@ bool AFLCoverage::runOnModule(Module &M) {
 			}
 		//}
 		
-		BasicBlock& first_bb = *(F.begin();
-		BasicBlock::iterator IP = first_bb.getFirstInsertionPt();
+	//	BasicBlock& first_bb = *(F.begin();
+	//	BasicBlock::iterator IP = first_bb.getFirstInsertionPt();
 
-		// The format string for the printf function, declared as a global literal
-		std::string format("\narg_strings: ");
-		for (size_t i = 0; i < arg_strings.size(); ++i) {
-			format += " %s\n";
-		}
+	//	// The format string for the printf function, declared as a global literal
+	//	std::string format("\narg_strings: ");
+	//	for (size_t i = 0; i < arg_strings.size(); ++i) {
+	//		format += " %s\n";
+	//	}
 
-		Value *str = builder.CreateGlobalStringPtr(format, "");
-		std::vector<Value *> argsV({str});
+	//	Value *str = builder.CreateGlobalStringPtr(format, "");
+	//	std::vector<Value *> argsV({str});
 
-		for (auto &s : arg_strings) {
-			argsV.push_back(builder.CreateGlobalStringPtr(s, ""));
-		}
-		builder.CreateCall(printfFunc, argsV, "calltmp");
-		
+	//	for (auto &s : arg_strings) {
+	//		argsV.push_back(builder.CreateGlobalStringPtr(s, ""));
+	//	}
+	//	builder.CreateCall(printfFunc, argsV, "calltmp");
+	//	
 
 
 	//Printing values and names inside each basic block
-	//	for (auto &BB : F) {
-	//		//auto &BB = F.begin();        
-	//		BasicBlock::iterator IP = BB.getFirstInsertionPt();
-        //                IRBuilder<> builder(&(*IP));
-	//		/*
-	//		{
-	//			// The format string for the printf function, declared as a global literal
-	//			std::string format("\narg_strings: ");
-	//			for (size_t i = 0; i < arg_strings.size(); ++i) {
-	//				format += " %s\n";
-	//			}
+		for (auto &BB : F) {
+			//auto &BB = F.begin();        
+			BasicBlock::iterator IP = BB.getFirstInsertionPt();
+                        IRBuilder<> builder(&(*IP));
+			/*
+			{
+				// The format string for the printf function, declared as a global literal
+				std::string format("\narg_strings: ");
+				for (size_t i = 0; i < arg_strings.size(); ++i) {
+					format += " %s\n";
+				}
 
-	//			Value *str = builder.CreateGlobalStringPtr(format, "");
-	//			std::vector<Value *> argsV({str});
+				Value *str = builder.CreateGlobalStringPtr(format, "");
+				std::vector<Value *> argsV({str});
 
-	//			for (auto &s : arg_strings) {
-	//				argsV.push_back(builder.CreateGlobalStringPtr(s, ""));
-	//			}
-	//			builder.CreateCall(printfFunc, argsV, "calltmp");
-	//		}
-	//		*/
-	//		
-	//		{
-	//			std::string format("\narg_values: ");
-	//			for (size_t i = 0; i < arg_values.size(); ++i) {
-	//				format += " %s = (0x%lx)\n";
-	//			}
+				for (auto &s : arg_strings) {
+					argsV.push_back(builder.CreateGlobalStringPtr(s, ""));
+				}
+				builder.CreateCall(printfFunc, argsV, "calltmp");
+			}
+			*/
+			
+			{
+				std::string format("\narg_values: ");
+				for (size_t i = 0; i < arg_values.size(); ++i) {
+					format += " %s = (0x%lx)\n";
+				}
 
-	//			Value *str = builder.CreateGlobalStringPtr(format, "");
-	//			std::vector<Value *> argsV({str});
+				Value *str = builder.CreateGlobalStringPtr(format, "");
+				std::vector<Value *> argsV({str});
 
-	//			for (auto &v : arg_values) {
-	//				argsV.push_back(builder.CreateGlobalStringPtr(v->getName(), ""));
-	//				argsV.push_back(v);
-	//			}
-	//			builder.CreateCall(printfFunc, argsV, "calltmp");
-	//		}
-	//		
-        //        }
+				for (auto &v : arg_values) {
+					argsV.push_back(builder.CreateGlobalStringPtr(v->getName(), ""));
+					argsV.push_back(v);
+				}
+				builder.CreateCall(printfFunc, argsV, "calltmp");
+			}
+			
+                }
         }
         return true;
 
